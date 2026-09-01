@@ -1,10 +1,24 @@
 import { useState } from "react"
 import { Link } from "react-router-dom"
 
+import RoleSelect from "../../components/auth/RoleSelect"
 import Button from "../../components/ui/Button"
+import { ROLES } from "../../utils/constants"
 import authService from "../../services/authService"
 
-function Register() {
+const MASTER_REGISTER_ROLES = [
+  {
+    value: ROLES.ADMIN,
+    label: "Admin",
+  },
+  {
+    value: ROLES.SUBMASTER,
+    label: "Sub Master",
+  },
+]
+
+function MasterRegister() {
+  const [role, setRole] = useState("")
   const [name, setName] = useState("")
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
@@ -13,15 +27,16 @@ function Register() {
   e.preventDefault()
 
   try {
-    const data = await authService.register({
+    const data = await authService.registerStaff({
       name,
       email,
       password,
+      role,
     })
 
-    console.log("Registration successful:", data)
+    console.log("Staff account created:", data)
   } catch (error) {
-    console.error("Registration failed:", error)
+    console.error("Staff registration failed:", error)
   }
 }
 
@@ -39,11 +54,11 @@ function Register() {
           </Link>
 
           <h1 className="mt-6 text-3xl font-semibold">
-            Create account
+            Create Staff Account
           </h1>
 
           <p className="mt-2 text-sm text-gray-400">
-            Start your TouchGrass journey
+            Master administration
           </p>
         </div>
 
@@ -52,10 +67,16 @@ function Register() {
           className="space-y-5 rounded-2xl border border-white/10 bg-white/5 p-6 backdrop-blur-xl sm:p-8"
         >
 
+          <RoleSelect
+            value={role}
+            onChange={setRole}
+            roles={MASTER_REGISTER_ROLES}
+          />
+
           <div className="space-y-2">
             <label
               htmlFor="name"
-              className="text-sm font-medium text-gray-300"
+              className="text-sm text-gray-300"
             >
               Name
             </label>
@@ -65,15 +86,14 @@ function Register() {
               type="text"
               value={name}
               onChange={(e) => setName(e.target.value)}
-              placeholder="Your name"
-              className="w-full rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-sm text-white placeholder:text-gray-600 outline-none focus:border-green-500/50"
+              className="w-full rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-white outline-none focus:border-green-500/50"
             />
           </div>
 
           <div className="space-y-2">
             <label
               htmlFor="email"
-              className="text-sm font-medium text-gray-300"
+              className="text-sm text-gray-300"
             >
               Email
             </label>
@@ -83,15 +103,14 @@ function Register() {
               type="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              placeholder="you@example.com"
-              className="w-full rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-sm text-white placeholder:text-gray-600 outline-none focus:border-green-500/50"
+              className="w-full rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-white outline-none focus:border-green-500/50"
             />
           </div>
 
           <div className="space-y-2">
             <label
               htmlFor="password"
-              className="text-sm font-medium text-gray-300"
+              className="text-sm text-gray-300"
             >
               Password
             </label>
@@ -101,28 +120,17 @@ function Register() {
               type="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              placeholder="••••••••"
-              className="w-full rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-sm text-white placeholder:text-gray-600 outline-none focus:border-green-500/50"
+              className="w-full rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-white outline-none focus:border-green-500/50"
             />
           </div>
 
           <Button
             type="submit"
             className="w-full"
-            disabled={!name || !email || !password}
+            disabled={!role || !name || !email || !password}
           >
-            Create Account
+            Create Staff Account
           </Button>
-
-          <p className="text-center text-sm text-gray-400">
-            Already have an account?{" "}
-            <Link
-              to="/login"
-              className="text-green-400 hover:text-green-300"
-            >
-              Login
-            </Link>
-          </p>
 
         </form>
       </div>
@@ -130,4 +138,4 @@ function Register() {
   )
 }
 
-export default Register
+export default MasterRegister
