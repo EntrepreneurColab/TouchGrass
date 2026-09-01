@@ -1,10 +1,27 @@
-import React from 'react'
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom"
 
-const AppRoutes = () => {
+import Home from "../pages/public/Home"
+import Login from "../pages/auth/Login"
+import Register from "../pages/auth/Register"
+import MasterRegister from "../pages/auth/MasterRegister"
+
+function AppRoutes() {
   return (
-    <div>
-      
-    </div>
+    <BrowserRouter>
+      <Routes>
+
+        <Route path="/" element={<Home />} />
+
+        <Route path="/login" element={<Login />} />
+
+        <Route path="/register" element={<Register />} />
+
+        <Route path="/master/register" element={<MasterRegister />}/>
+
+        {/* Undefined routes */}
+        <Route path="*" element={<Navigate to="/" replace />} />
+      </Routes>
+    </BrowserRouter>
   )
 }
 
