@@ -15,6 +15,10 @@ const MASTER_REGISTER_ROLES = [
     value: ROLES.SUBMASTER,
     label: "Sub Master",
   },
+  {
+    value: ROLES.MASTER,
+    label: "Master",
+  }
 ]
 
 function MasterRegister() {

@@ -17,4 +17,8 @@ export const LOGIN_ROLES = [
     value: ROLES.SUBMASTER,
     label: "Sub Master",
   },
+  {
+    value: ROLES.MASTER,
+    label: "Master",
+  },
 ]

@@ -16,13 +16,10 @@ function AppRoutes() {
 
         <Route path="/register" element={<Register />} />
 
+        <Route path="/master/register" element={<MasterRegister />}/>
+
         {/* Undefined routes */}
         <Route path="*" element={<Navigate to="/" replace />} />
-        <Route
-          path="/master/register"
-          element={<MasterRegister />}
-        />
-
       </Routes>
     </BrowserRouter>
   )
