@@ -1,7 +1,7 @@
 export const ROLES = {
   USER: "user",
   ADMIN: "admin",
-  SUBMASTER: "submaster",
+  SUBMASTER: "sub-master",
   MASTER: "master",
 }
 export const LOGIN_ROLES = [
