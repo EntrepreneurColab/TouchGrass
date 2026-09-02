@@ -17,7 +17,7 @@ function AppRoutes() {
 
         <Route path="/register" element={<Register />} />
 
-        <Route path="/master/register" element={<MasterRegister />}/>
+        <Route path="/staff/register" element={<MasterRegister />}/>
 
         <Route path="/admin/dashboard" element={<AdminDashboard />} />
         {/* Undefined routes */}

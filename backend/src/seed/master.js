@@ -1,9 +1,10 @@
-require("dotenv").config();
+import dotenv from "dotenv";
+dotenv.config({ path: "./.env" });
 
-const bcrypt = require("bcryptjs");
+import bcrypt from "bcryptjs";
 
-const connectDB = require("../config/db");
-const Master = require("../models/Master");
+import connectDB from "../config/db.js";
+import Master from "../models/Master.js";
 
 const createMaster = async () => {
   try {
