@@ -3,7 +3,7 @@ import GlassCard from "../../components/ui/GlassCard"
 
 function Home() {
   return (
-    <div className="min-h-screen bg-black text-white">
+    <div className="min-h-screen bg-black/20 text-white">
       <Navbar />
 
       <main className="flex min-h-[80vh] items-center justify-center px-6">

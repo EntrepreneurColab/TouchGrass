@@ -4,6 +4,7 @@ import Home from "../pages/public/Home"
 import Login from "../pages/auth/Login"
 import Register from "../pages/auth/Register"
 import MasterRegister from "../pages/auth/MasterRegister"
+import AdminDashboard from "../pages/admin/Dashboard"
 
 function AppRoutes() {
   return (
@@ -18,6 +19,7 @@ function AppRoutes() {
 
         <Route path="/master/register" element={<MasterRegister />}/>
 
+        <Route path="/admin/dashboard" element={<AdminDashboard />} />
         {/* Undefined routes */}
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>

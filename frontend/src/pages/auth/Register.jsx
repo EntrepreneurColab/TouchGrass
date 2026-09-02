@@ -26,7 +26,7 @@ function Register() {
 }
 
   return (
-    <main className="flex min-h-screen items-center justify-center bg-black px-4 py-10 text-white sm:px-6">
+    <main className="flex min-h-screen items-center justify-center bg-black/20 px-4 py-10 text-white sm:px-6">
 
       <div className="w-full max-w-md">
 
