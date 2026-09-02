@@ -1,6 +1,10 @@
-const bcrypt = require("bcryptjs");
-const jwt = require("jsonwebtoken");
-const User = require("../models/User");
+import bcrypt from "bcryptjs";
+import jwt from "jsonwebtoken";
+
+import User from "../models/User.js";
+import Admin from "../models/Admin.js";
+import SubMaster from "../models/SubMaster.js";
+import Master from "../models/Master.js";
 
 const registerUser = async (req, res) => {
   try {
@@ -50,22 +54,95 @@ const registerUser = async (req, res) => {
   }
 };
 
+
 const login = async (req, res) => {
   try {
-    const { email, password } = req.body;
+    const { email, password, role } = req.body;
 
-    if (!email || !password) {
+    // Validate request
+    if (!email || !password || !role) {
       return res.status(400).json({
         success: false,
-        message: "Email and password are required",
+        message: "Email, password and role are required",
       });
     }
 
-    // We'll add staff/user lookup here next.
-    res.json({
-      success: true,
-      message: "Login endpoint is ready for implementation",
+    // Select the correct collection/model
+    const models = {
+      user: User,
+      admin: Admin,
+      "sub-master": SubMaster,
+      master: Master,
+    };
+
+    const Model = models[role.toLowerCase()];
+
+    // Invalid role
+    if (!Model) {
+      return res.status(400).json({
+        success: false,
+        message: "Invalid role",
+      });
+    }
+
+    // Find account in the selected collection
+    const account = await Model.findOne({
+      email: email.toLowerCase(),
     });
+
+    if (!account) {
+      return res.status(401).json({
+        success: false,
+        message: "Invalid email, password or role",
+      });
+    }
+
+    // Check whether staff account is active
+    if (role !== "user" && account.isActive === false) {
+      return res.status(403).json({
+        success: false,
+        message: "Account is inactive",
+      });
+    }
+
+    // Compare password
+    const isPasswordValid = await bcrypt.compare(
+      password,
+      account.password
+    );
+
+    if (!isPasswordValid) {
+      return res.status(401).json({
+        success: false,
+        message: "Invalid email, password or role",
+      });
+    }
+
+    // Create JWT
+    const token = jwt.sign(
+      {
+        id: account._id,
+        role: account.role,
+      },
+      process.env.JWT_SECRET,
+      {
+        expiresIn: "1d",
+      }
+    );
+
+    // Successful login
+    res.status(200).json({
+      success: true,
+      message: "Login successful",
+      token,
+      user: {
+        id: account._id,
+        name: account.name,
+        email: account.email,
+        role: account.role,
+      },
+    });
+
   } catch (error) {
     res.status(500).json({
       success: false,
@@ -74,7 +151,6 @@ const login = async (req, res) => {
   }
 };
 
-module.exports = {
-  registerUser,
-  login,
-};
+
+export { registerUser, login };
+
