@@ -1,9 +1,9 @@
-const bcrypt = require("bcryptjs");
+import bcrypt from "bcryptjs";
 
-const User = require("../models/User");
-const Admin = require("../models/Admin");
-const SubMaster = require("../models/SubMaster");
-const Master = require("../models/Master");
+import User from "../models/User.js";
+import Admin from "../models/Admin.js";
+import SubMaster from "../models/SubMaster.js";
+import Master from "../models/Master.js";
 
 const allowedRoles = {
   master: ["master", "sub-master", "admin"],
@@ -77,6 +77,4 @@ const registerStaff = async (req, res) => {
   }
 };
 
-module.exports = {
-  registerStaff,
-};
+export { registerStaff };
