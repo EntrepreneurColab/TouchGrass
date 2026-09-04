@@ -4,26 +4,35 @@ import { Link } from "react-router-dom"
 import Button from "../../components/ui/Button"
 import authService from "../../services/authService"
 
+
 function Register() {
   const [name, setName] = useState("")
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
 
-  const handleSubmit = async (e) => {
-  e.preventDefault()
+  const handleRegister = async (e) => {
+    e.preventDefault()
 
-  try {
-    const data = await authService.register({
-      name,
-      email,
-      password,
-    })
+    try {
+      const response = await authService.register({
+        name,
+        email,
+        password,
+      })
 
-    console.log("Registration successful:", data)
-  } catch (error) {
-    console.error("Registration failed:", error)
+      console.log(response)
+
+      alert(response.message)
+
+    } catch (error) {
+      console.error(error)
+
+      alert(
+        error.response?.data?.message ||
+        "Registration failed"
+      )
+    }
   }
-}
 
   return (
     <main className="flex min-h-screen items-center justify-center bg-black/20 px-4 py-10 text-white sm:px-6">
@@ -48,7 +57,7 @@ function Register() {
         </div>
 
         <form
-          onSubmit={handleSubmit}
+          onSubmit={handleRegister}
           className="space-y-5 rounded-2xl border border-white/10 bg-white/5 p-6 backdrop-blur-xl sm:p-8"
         >
 
@@ -66,6 +75,7 @@ function Register() {
               value={name}
               onChange={(e) => setName(e.target.value)}
               placeholder="Your name"
+
               className="w-full rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-sm text-white placeholder:text-gray-600 outline-none focus:border-green-500/50"
             />
           </div>
