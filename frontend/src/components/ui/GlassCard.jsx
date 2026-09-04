@@ -3,10 +3,9 @@ function GlassCard({ children, className = "" }) {
     <div
       className={`
         rounded-2xl
-        border border-white/10
-        bg-white/5
-        backdrop-blur-xl
-        shadow-2xl shadow-black/20
+  border border-white/10
+  bg-white/5
+  backdrop-blur-xl
         ${className}
       `}
     >

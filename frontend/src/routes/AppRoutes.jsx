@@ -4,6 +4,7 @@ import Home from "../pages/public/Home"
 import Login from "../pages/auth/Login"
 import Register from "../pages/auth/Register"
 import MasterRegister from "../pages/auth/MasterRegister"
+import AdminDashboard from "../pages/admin/Dashboard"
 
 function AppRoutes() {
   return (
@@ -16,13 +17,22 @@ function AppRoutes() {
 
         <Route path="/register" element={<Register />} />
 
-        <Route path="/staff/register" element={<MasterRegister />}/>
+        <Route
+          path="/staff/register"
+          element={<MasterRegister />}
+        />
 
-        {/* Undefined routes */}
+        
+
+        <Route
+          path="/admin/dashboard"
+          element={<AdminDashboard />}
+        />
+
         <Route path="*" element={<Navigate to="/" replace />} />
+
       </Routes>
     </BrowserRouter>
   )
 }
-
 export default AppRoutes
