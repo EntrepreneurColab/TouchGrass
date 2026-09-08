@@ -8,6 +8,9 @@ import MasterRegister from "../pages/auth/MasterRegister"
 
 import AdminDashboard from "../pages/admin/Dashboard"
 import UserDashboard from "../pages/user/Dashboard"
+import Contact from "../pages/public/Contact"
+import MasterDashboard from "../pages/master/Dashboard"
+
 
 import ProtectedRoute from "./ProtectedRoute"
 
@@ -20,6 +23,11 @@ function AppRoutes() {
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route path="/staff/register" element={<MasterRegister />} />
+        <Route path="/contact" element={<Contact />} />
+        <Route
+          path="/master/dashboard"
+          element={<MasterDashboard />}
+        />
 
         {/* Protected */}
         <Route element={<ProtectedRoute />}>

@@ -8,6 +8,7 @@ import connectDB from "./config/db.js";
 
 import authRoutes from "./routes/authRoutes.js";
 import staffRoutes from "./routes/staffRoutes.js";
+import contactRoutes from "./routes/contactRoutes.js"
 
 const app = express();
 
@@ -18,6 +19,7 @@ connectDB();
 
 app.use("/api/auth", authRoutes);
 app.use("/api/staff", staffRoutes);
+app.use("/api/contact", contactRoutes);
 
 app.get("/api/health", (req, res) => {
   res.json({
