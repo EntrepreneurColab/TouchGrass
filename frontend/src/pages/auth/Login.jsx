@@ -45,7 +45,7 @@ function Login() {
 
       if (data.success) {
         if (data.user.role === "user") {
-          navigate("/")
+          navigate("/user/dashboard")
         } else if (data.user.role === "admin") {
           navigate("/admin/dashboard")
         } else if (data.user.role === "sub-master") {

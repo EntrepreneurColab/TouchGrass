@@ -3,9 +3,11 @@ function GlassCard({ children, className = "" }) {
     <div
       className={`
         rounded-2xl
-  border border-white/10
-  bg-white/5
-  backdrop-blur-xl
+        border border-white/[0.10]
+        bg-white/[0.015]
+        backdrop-blur-sm
+        backdrop-saturate-150
+        shadow-[0_8px_32px_rgba(0,0,0,0.12)]
         ${className}
       `}
     >
