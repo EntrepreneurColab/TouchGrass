@@ -1,3 +1,4 @@
+import axios from "axios"
 import Contact from "../models/Contact.js"
 
 const createContact = async (req, res) => {
@@ -18,6 +19,22 @@ const createContact = async (req, res) => {
       phone,
       message,
     })
+    try {
+      await axios.post(process.env.N8N_WEBHOOK_URL, {
+        id: contact._id,
+        name: contact.name,
+        email: contact.email,
+        company: contact.company,
+        phone: contact.phone,
+        message: contact.message,
+        status: contact.status,
+        createdAt: contact.createdAt,
+      })
+
+      console.log("Lead sent to n8n successfully")
+    } catch (n8nError) {
+      console.error("Failed to send lead to n8n:", n8nError.message)
+    }
 
     return res.status(201).json({
       success: true,
