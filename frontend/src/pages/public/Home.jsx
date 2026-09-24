@@ -12,6 +12,7 @@ import {
 import Button from "../../components/ui/Button"
 import GlassCard from "../../components/ui/GlassCard"
 import authService from "../../services/authService"
+import api from "../../services/api"
 
 function Home() {
   const navigate = useNavigate()
@@ -24,6 +25,21 @@ function Home() {
 
     setMenuOpen(false)
   }
+
+  const checkBackend = async () => {
+    try {
+      const response = await api.get("/health")
+
+      console.log("Backend connected:", response.data)
+    } catch (error) {
+      console.error(
+        "Backend connection failed:",
+        error.response?.data || error.message
+      )
+    }
+  }
+
+  checkBackend()
 
   const handleContactClick = () => {
     if (!authService.isAuthenticated()) {
@@ -53,7 +69,6 @@ function Home() {
             >
               Touch<span className="text-green-500">Grass</span>
             </Link>
-
 
             {/* Desktop Navigation */}
 
@@ -100,7 +115,6 @@ function Home() {
 
             </div>
 
-
             {/* Mobile Menu Button */}
 
             <button
@@ -117,7 +131,6 @@ function Home() {
             </button>
 
           </div>
-
 
           {/* Mobile Navigation */}
 
@@ -181,7 +194,6 @@ function Home() {
         </div>
       </nav>
 
-
       {/* ================= HERO ================= */}
 
       <section
@@ -193,13 +205,14 @@ function Home() {
           <div className="max-w-5xl">
 
             <div className="mb-6 inline-flex items-center rounded-full border border-green-500/20 bg-green-500/[0.05] px-4 py-2 backdrop-blur-sm">
+
               <span className="mr-2 h-2 w-2 rounded-full bg-green-500" />
 
               <span className="text-xs font-medium uppercase tracking-[0.2em] text-green-400">
                 AI • Automation • Technology
               </span>
-            </div>
 
+            </div>
 
             <h1 className="text-5xl font-semibold leading-[1.05] tracking-tight sm:text-6xl lg:text-8xl">
               Turn business
@@ -209,13 +222,11 @@ function Home() {
               automated solutions.
             </h1>
 
-
             <p className="mt-8 max-w-2xl text-base leading-7 text-gray-300 sm:text-lg sm:leading-8">
               We identify repetitive work, inefficient processes,
               and business bottlenecks — then build intelligent
               systems that solve them.
             </p>
-
 
             <div className="mt-8 flex flex-col gap-3 sm:flex-row">
 
@@ -237,7 +248,6 @@ function Home() {
 
         </div>
       </section>
-
 
       {/* ================= OBJECTIVE ================= */}
 
@@ -262,7 +272,6 @@ function Home() {
 
             </div>
 
-
             <div className="max-w-xl text-gray-300">
 
               <p className="leading-8">
@@ -284,7 +293,6 @@ function Home() {
 
         </div>
       </section>
-
 
       {/* ================= SOLUTIONS ================= */}
 
@@ -314,7 +322,6 @@ function Home() {
 
           </div>
 
-
           <div className="mt-12 grid gap-5 md:grid-cols-2">
 
             {/* AI */}
@@ -338,7 +345,6 @@ function Home() {
 
             </GlassCard>
 
-
             {/* Workflow */}
 
             <GlassCard className="group p-7 transition duration-300 hover:-translate-y-1 hover:bg-white/[0.04]">
@@ -360,7 +366,6 @@ function Home() {
 
             </GlassCard>
 
-
             {/* Software */}
 
             <GlassCard className="group p-7 transition duration-300 hover:-translate-y-1 hover:bg-white/[0.04]">
@@ -381,7 +386,6 @@ function Home() {
               </p>
 
             </GlassCard>
-
 
             {/* Problem Solving */}
 
@@ -409,7 +413,6 @@ function Home() {
         </div>
       </section>
 
-
       {/* ================= PROCESS ================= */}
 
       <section className="px-4 py-24 sm:px-6 lg:py-32">
@@ -430,7 +433,6 @@ function Home() {
             </h2>
 
           </div>
-
 
           <div className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
 
@@ -488,7 +490,6 @@ function Home() {
 
       </section>
 
-
       {/* ================= CONTACT ================= */}
 
       <section
@@ -501,6 +502,8 @@ function Home() {
           <GlassCard className="p-6 sm:p-10 lg:p-14">
 
             <div className="grid gap-12 lg:grid-cols-2 lg:items-center">
+
+              {/* Contact Information */}
 
               <div>
 
@@ -531,10 +534,113 @@ function Home() {
 
               </div>
 
+              {/* Contact Form + Direct Contact */}
 
-              <ContactForm
-                onRequireLogin={() => navigate("/login")}
-              />
+              <div>
+
+                <ContactForm
+                  onRequireLogin={() => navigate("/login")}
+                />
+
+                {/* Direct Contact Options */}
+
+                <div className="mt-8 border-t border-white/10 pt-8">
+
+                  <p className="mb-4 text-center text-sm text-gray-500">
+                    Or contact us directly
+                  </p>
+
+                  <div className="grid gap-3 sm:grid-cols-2">
+
+                    {/* WhatsApp */}
+
+                    <a
+                      href="https://wa.me/916369115420"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="group flex items-center gap-4 rounded-xl border border-white/10 bg-white/[0.02] p-4 transition-all duration-300 hover:border-green-500/30 hover:bg-white/[0.05]"
+                    >
+
+                      <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-green-500/10 text-green-500 transition group-hover:bg-green-500/15">
+
+                        <svg
+                          viewBox="0 0 24 24"
+                          fill="currentColor"
+                          className="h-5 w-5"
+                        >
+                          <path d="M20.52 3.48A11.86 11.86 0 0 0 12.06 0C5.5 0 .16 5.34.16 11.9c0 2.1.55 4.15 1.6 5.96L.06 24l6.28-1.65a11.88 11.88 0 0 0 5.72 1.46h.01c6.56 0 11.9-5.34 11.9-11.9 0-3.18-1.24-6.17-3.45-8.43ZM12.07 21.83h-.01a9.9 9.9 0 0 1-5.05-1.38l-.36-.21-3.73.98 1-3.64-.23-.37a9.86 9.86 0 0 1-1.51-5.3C2.18 6.45 6.62 2 12.07 2a9.86 9.86 0 0 1 7.02 2.91 9.86 9.86 0 0 1 2.9 7.03c0 5.46-4.45 9.89-9.92 9.89Zm5.43-7.42c-.3-.15-1.76-.87-2.03-.97-.27-.1-.47-.15-.67.15-.2.3-.77.97-.94 1.17-.17.2-.35.22-.65.07-.3-.15-1.25-.46-2.38-1.47-.88-.78-1.47-1.75-1.64-2.05-.17-.3-.02-.46.13-.61.13-.13.3-.35.45-.52.15-.17.2-.3.3-.5.1-.2.05-.37-.02-.52-.07-.15-.67-1.61-.92-2.2-.24-.58-.49-.5-.67-.51h-.57c-.2 0-.52.07-.79.37-.27.3-1.04 1.02-1.04 2.48s1.07 2.87 1.22 3.07c.15.2 2.1 3.2 5.08 4.49.71.31 1.27.5 1.7.64.72.23 1.38.2 1.9.12.58-.09 1.76-.72 2.01-1.42.25-.7.25-1.3.17-1.42-.07-.12-.27-.2-.57-.35Z" />
+                        </svg>
+
+                      </div>
+
+                      <div className="min-w-0">
+
+                        <p className="text-sm font-medium text-white">
+                          WhatsApp
+                        </p>
+
+                        <p className="mt-1 text-xs text-gray-500">
+                          Chat with us directly
+                        </p>
+
+                      </div>
+
+                    </a>
+
+                    {/* Email */}
+
+                    <a
+                      href="mailto:hello@touchgrass.in"
+                      className="group flex items-center gap-4 rounded-xl border border-white/10 bg-white/[0.02] p-4 transition-all duration-300 hover:border-green-500/30 hover:bg-white/[0.05]"
+                    >
+
+                      <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-green-500/10 text-green-500 transition group-hover:bg-green-500/15">
+
+                        <svg
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          stroke="currentColor"
+                          strokeWidth="1.8"
+                          className="h-5 w-5"
+                        >
+
+                          <rect
+                            x="3"
+                            y="5"
+                            width="18"
+                            height="14"
+                            rx="2"
+                          />
+
+                          <path
+                            d="m4 7 7.1 5.1a1.55 1.55 0 0 0 1.8 0L20 7"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                          />
+
+                        </svg>
+
+                      </div>
+
+                      <div className="min-w-0">
+
+                        <p className="text-sm font-medium text-white">
+                          Email
+                        </p>
+
+                        <p className="mt-1 truncate text-xs text-gray-500">
+                          hello@touchgrass.in
+                        </p>
+
+                      </div>
+
+                    </a>
+
+                  </div>
+
+                </div>
+
+              </div>
 
             </div>
 
@@ -543,7 +649,6 @@ function Home() {
         </div>
 
       </section>
-
 
       {/* ================= FOOTER ================= */}
 
@@ -565,7 +670,6 @@ function Home() {
             </p>
 
           </div>
-
 
           <div className="flex flex-wrap gap-5 text-sm text-gray-500">
 
@@ -592,7 +696,6 @@ function Home() {
 
           </div>
 
-
           <p className="text-sm text-gray-500">
             © 2026 TouchGrass. All rights reserved.
           </p>
@@ -604,7 +707,6 @@ function Home() {
     </main>
   )
 }
-
 
 /* ================= CONTACT FORM ================= */
 
@@ -623,7 +725,6 @@ function ContactForm({ onRequireLogin }) {
       [e.target.name]: e.target.value,
     }))
   }
-
 
   const handleSubmit = async (e) => {
     e.preventDefault()
@@ -668,7 +769,6 @@ function ContactForm({ onRequireLogin }) {
     }
   }
 
-
   return (
     <form
       onSubmit={handleSubmit}
@@ -698,7 +798,6 @@ function ContactForm({ onRequireLogin }) {
 
       </div>
 
-
       <div>
 
         <label
@@ -722,7 +821,6 @@ function ContactForm({ onRequireLogin }) {
 
       </div>
 
-
       <div>
 
         <label
@@ -745,7 +843,6 @@ function ContactForm({ onRequireLogin }) {
 
       </div>
 
-
       <Button
         type="submit"
         disabled={loading}
@@ -754,7 +851,6 @@ function ContactForm({ onRequireLogin }) {
         {loading ? "Sending..." : "Send Message"}
         {!loading && <ArrowRight size={18} />}
       </Button>
-
 
       <p className="text-center text-xs leading-5 text-gray-600">
         You must be signed in before submitting a contact request.
