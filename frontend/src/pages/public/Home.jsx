@@ -618,7 +618,7 @@ function Home() {
                           Email
                         </p>
                         <p className="mt-1 truncate text-xs text-gray-500">
-                          hello@touchgrass.in
+                          jasim860p@gmail.com
                         </p>
                       </div>
                     </a>
