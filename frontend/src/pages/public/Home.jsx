@@ -12,10 +12,25 @@ import {
 import Button from "../../components/ui/Button"
 import GlassCard from "../../components/ui/GlassCard"
 import authService from "../../services/authService"
+import api from "../../services/api"
 
 function Home() {
   const navigate = useNavigate()
   const [menuOpen, setMenuOpen] = useState(false)
+  const checkBackend = async () => {
+    try {
+      const response = await api.get("/health")
+
+      console.log("Backend connected:", response.data)
+    } catch (error) {
+      console.error(
+        "Backend connection failed:",
+        error.response?.data || error.message
+      )
+    }
+  }
+
+  checkBackend()
 
   const scrollToSection = (id) => {
     document.getElementById(id)?.scrollIntoView({
@@ -532,9 +547,85 @@ function Home() {
               </div>
 
 
-              <ContactForm
-                onRequireLogin={() => navigate("/login")}
-              />
+              <GlassCard className="p-6 sm:p-8">
+                <ContactForm onRequireLogin={handleContactClick} />
+
+                {/* Direct Contact Options */}
+                <div className="mt-8 border-t border-white/10 pt-8">
+                  <p className="mb-4 text-center text-sm text-gray-500">
+                    Or contact us directly
+                  </p>
+
+                  <div className="grid gap-3 sm:grid-cols-2">
+
+                    {/* WhatsApp */}
+                    <a
+                      href="https://wa.me/916369115420"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="group flex items-center gap-4 rounded-xl border border-white/10 bg-white/[0.02] p-4 transition-all duration-300 hover:border-green-500/30 hover:bg-white/[0.05]"
+                    >
+                      <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-green-500/10 text-green-500 transition group-hover:bg-green-500/15">
+                        <svg
+                          viewBox="0 0 24 24"
+                          fill="currentColor"
+                          className="h-5 w-5"
+                        >
+                          <path d="M20.52 3.48A11.86 11.86 0 0 0 12.06 0C5.5 0 .16 5.34.16 11.9c0 2.1.55 4.15 1.6 5.96L.06 24l6.28-1.65a11.88 11.88 0 0 0 5.72 1.46h.01c6.56 0 11.9-5.34 11.9-11.9 0-3.18-1.24-6.17-3.45-8.43ZM12.07 21.83h-.01a9.9 9.9 0 0 1-5.05-1.38l-.36-.21-3.73.98 1-3.64-.23-.37a9.86 9.86 0 0 1-1.51-5.3C2.18 6.45 6.62 2 12.07 2a9.86 9.86 0 0 1 7.02 2.91 9.86 9.86 0 0 1 2.9 7.03c0 5.46-4.45 9.89-9.92 9.89Zm5.43-7.42c-.3-.15-1.76-.87-2.03-.97-.27-.1-.47-.15-.67.15-.2.3-.77.97-.94 1.17-.17.2-.35.22-.65.07-.3-.15-1.25-.46-2.38-1.47-.88-.78-1.47-1.75-1.64-2.05-.17-.3-.02-.46.13-.61.13-.13.3-.35.45-.52.15-.17.2-.3.3-.5.1-.2.05-.37-.02-.52-.07-.15-.67-1.61-.92-2.2-.24-.58-.49-.5-.67-.51h-.57c-.2 0-.52.07-.79.37-.27.3-1.04 1.02-1.04 2.48s1.07 2.87 1.22 3.07c.15.2 2.1 3.2 5.08 4.49.71.31 1.27.5 1.7.64.72.23 1.38.2 1.9.12.58-.09 1.76-.72 2.01-1.42.25-.7.25-1.3.17-1.42-.07-.12-.27-.2-.57-.35Z" />
+                        </svg>
+                      </div>
+
+                      <div className="min-w-0">
+                        <p className="text-sm font-medium text-white">
+                          WhatsApp
+                        </p>
+                        <p className="mt-1 text-xs text-gray-500">
+                          Chat with us directly
+                        </p>
+                      </div>
+                    </a>
+
+                    {/* Email */}
+                    <a
+                      href="mailto:hello@touchgrass.in"
+                      className="group flex items-center gap-4 rounded-xl border border-white/10 bg-white/[0.02] p-4 transition-all duration-300 hover:border-green-500/30 hover:bg-white/[0.05]"
+                    >
+                      <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-green-500/10 text-green-500 transition group-hover:bg-green-500/15">
+                        <svg
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          stroke="currentColor"
+                          strokeWidth="1.8"
+                          className="h-5 w-5"
+                        >
+                          <rect
+                            x="3"
+                            y="5"
+                            width="18"
+                            height="14"
+                            rx="2"
+                          />
+                          <path
+                            d="m4 7 7.1 5.1a1.55 1.55 0 0 0 1.8 0L20 7"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                          />
+                        </svg>
+                      </div>
+
+                      <div className="min-w-0">
+                        <p className="text-sm font-medium text-white">
+                          Email
+                        </p>
+                        <p className="mt-1 truncate text-xs text-gray-500">
+                          hello@touchgrass.in
+                        </p>
+                      </div>
+                    </a>
+
+                  </div>
+                </div>
+              </GlassCard>
 
             </div>
 
