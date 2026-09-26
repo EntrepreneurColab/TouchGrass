@@ -587,7 +587,7 @@ function Home() {
 
                     {/* Email */}
                     <a
-                      href="mailto:hello@touchgrass.in"
+                      href="mailto:jasim860p@gmail.com"
                       className="group flex items-center gap-4 rounded-xl border border-white/10 bg-white/[0.02] p-4 transition-all duration-300 hover:border-green-500/30 hover:bg-white/[0.05]"
                     >
                       <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-green-500/10 text-green-500 transition group-hover:bg-green-500/15">
