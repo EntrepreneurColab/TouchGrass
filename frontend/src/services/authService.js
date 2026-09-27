@@ -1,36 +1,95 @@
 import api from "./api"
 
-const authService = {
-  login: async (credentials) => {
-    const response = await api.post("/auth/login", credentials)
-    return response.data
-  },
+const SESSION_DURATION = 2 * 60 * 60 * 1000 // 2 hours
 
-  register: async (userData) => {
-    const response = await api.post("/auth/register", userData)
-    return response.data
-  },
+const login = async (loginData) => {
+  const response = await api.post("/auth/login", loginData)
 
-  registerStaff: async (staffData) => {
-    const response = await api.post("/auth/register-staff", staffData)
-    return response.data
-  },
+  const data = response.data
 
-  getRoles: async () => {
-    const response = await api.get("/auth/roles")
-    return response.data
-  },
+  console.log("AUTH SERVICE RESPONSE:", data)
 
-  isAuthenticated: () => {
-    const token = localStorage.getItem("token"); 
-    return !!token; 
-  },
+  if (data.success && data.token) {
+    sessionStorage.setItem("token", data.token)
+    sessionStorage.setItem("user", JSON.stringify(data.user))
+    sessionStorage.setItem("loginTime", Date.now().toString())
 
-  // Add this method to get the user data 👇
-  getCurrentUser: () => {
-    const user = localStorage.getItem("user");
-    return user ? JSON.parse(user) : null; // Converts the saved string back into a JS object
+    console.log(
+      "TOKEN SAVED:",
+      sessionStorage.getItem("token")
+    )
+
+    console.log(
+      "USER SAVED:",
+      sessionStorage.getItem("user")
+    )
+
+    console.log(
+      "LOGIN TIME SAVED:",
+      sessionStorage.getItem("loginTime")
+    )
   }
+
+  return data
+}
+
+const register = async (userData) => {
+  const response = await api.post("/auth/register", userData)
+  return response.data
+}
+
+const getCurrentUser = () => {
+  const user = sessionStorage.getItem("user")
+
+  if (!user) return null
+
+  try {
+    return JSON.parse(user)
+  } catch {
+    return null
+  }
+}
+
+const getToken = () => {
+  return sessionStorage.getItem("token")
+}
+
+const isAuthenticated = () => {
+  const token = sessionStorage.getItem("token")
+  const loginTime = sessionStorage.getItem("loginTime")
+
+  if (!token || !loginTime) {
+    return false
+  }
+
+  const elapsedTime = Date.now() - Number(loginTime)
+
+  if (elapsedTime >= SESSION_DURATION) {
+    logout()
+    return false
+  }
+
+  return true
+}
+
+const logout = () => {
+  sessionStorage.removeItem("token")
+  sessionStorage.removeItem("user")
+  sessionStorage.removeItem("loginTime")
+}
+
+const clearSession = () => {
+  sessionStorage.clear()
+}
+
+const authService = {
+  login,
+  register,
+  getCurrentUser,
+  getToken,
+  isAuthenticated,
+  logout,
+  clearSession,
 }
 
 export default authService

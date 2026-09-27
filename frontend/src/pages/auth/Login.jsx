@@ -2,7 +2,7 @@ import { useState } from "react"
 import { Link, useNavigate } from "react-router-dom"
 
 import Button from "../../components/ui/Button"
-import authService from "../../services/authService"
+import authService from "../../services/authservice"
 import Dropdown from "../../components/ui/Dropdown"
 
 function Login() {
@@ -11,6 +11,7 @@ function Login() {
   const [role, setRole] = useState("")
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
+  const [error, setError] = useState("")
 
   const loginRoles = [
     {
@@ -34,6 +35,8 @@ function Login() {
   const handleSubmit = async (e) => {
     e.preventDefault()
 
+    setError("")
+
     try {
       const data = await authService.login({
         email,
@@ -52,14 +55,17 @@ function Login() {
           navigate("/submaster")
         } else if (data.user.role === "master") {
           navigate("/master")
-        } else if (data.user.role === "staff") {
-          navigate("/staff")
         }
       }
     } catch (error) {
       console.error(
         "Login failed:",
         error.response?.data || error.message
+      )
+
+      setError(
+        error.response?.data?.message ||
+        "Wrong email or password. Please try again."
       )
     }
   }
@@ -104,6 +110,11 @@ function Login() {
               placeholder="Select role"
             />
           </div>
+          {error && (
+            <div className="rounded-xl border border-red-500/20 bg-red-500/10 px-4 py-3 text-sm text-red-400">
+              {error}
+            </div>
+          )}
 
           {/* Email */}
           <div className="space-y-2">
