@@ -1,7 +1,7 @@
 import { useState } from "react"
 import { Link } from "react-router-dom"
 import Button from "../../components/ui/Button"
-import authService from "../../services/authService"
+import authService from "../../services/authservice"
 function RoleSelect({ value, onChange, roles = [] }) {
   return (
     <div className="space-y-2">

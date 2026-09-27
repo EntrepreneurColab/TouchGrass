@@ -2,7 +2,7 @@ import { useState } from "react"
 import { Link, useNavigate } from "react-router-dom"
 
 import Button from "../../components/ui/Button"
-import authService from "../../services/authService"
+import authService from "../../services/authservice"
 import Dropdown from "../../components/ui/Dropdown"
 
 function Login() {

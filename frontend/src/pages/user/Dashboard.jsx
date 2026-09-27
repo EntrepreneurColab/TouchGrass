@@ -16,7 +16,7 @@ import {
 
 import GlassCard from "../../components/ui/GlassCard"
 import Button from "../../components/ui/Button"
-import authService from "../../services/authService"
+import authService from "../../services/authservice"
 
 function Dashboard() {
   const [sidebarOpen, setSidebarOpen] = useState(false)

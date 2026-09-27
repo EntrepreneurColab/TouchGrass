@@ -11,7 +11,7 @@ import {
 
 import Button from "../../components/ui/Button"
 import GlassCard from "../../components/ui/GlassCard"
-import authService from "../../services/authService"
+import authService from "../../services/authservice"
 import api from "../../services/api"
 
 function Home() {
