@@ -39,6 +39,13 @@ const registerStaff = async (req, res) => {
 
     const Model = models[role];
 
+    if (!Model) {
+      return res.status(400).json({
+        success: false,
+        message: "Invalid role",
+      });
+    }
+
     const existingUser = await Model.findOne({
       email: email.toLowerCase(),
     });

@@ -2,7 +2,7 @@ import { useState } from "react"
 import { Link, useNavigate } from "react-router-dom"
 
 import Button from "../../components/ui/Button"
-import authService from "../../services/authservice"
+import authService from "../../services/authService"
 import Dropdown from "../../components/ui/Dropdown"
 
 function Login() {
@@ -54,7 +54,7 @@ function Login() {
         } else if (data.user.role === "sub-master") {
           navigate("/submaster")
         } else if (data.user.role === "master") {
-          navigate("/master")
+          navigate("/master/dashboard")
         }
       }
     } catch (error) {

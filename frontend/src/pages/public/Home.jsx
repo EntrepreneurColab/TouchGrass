@@ -11,7 +11,7 @@ import {
 
 import Button from "../../components/ui/Button"
 import GlassCard from "../../components/ui/GlassCard"
-import authService from "../../services/authservice"
+import authService from "../../services/authService"
 import api from "../../services/api"
 
 function Home() {
@@ -457,7 +457,7 @@ function Home() {
 
               <div>
                 <GlassCard className="p-6 sm:p-8">
-                  <ContactForm onRequireLogin={handleContactClick} />
+                  <ContactForm />
 
                   <div className="mt-8 border-t border-white/10 pt-8">
                     <p className="mb-4 text-center text-sm text-gray-500">

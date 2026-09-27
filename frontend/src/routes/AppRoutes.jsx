@@ -24,15 +24,15 @@ function AppRoutes() {
         <Route path="/register" element={<Register />} />
         <Route path="/staff/register" element={<MasterRegister />} />
         <Route path="/contact" element={<Contact />} />
-        <Route
-          path="/master/dashboard"
-          element={<MasterDashboard />}
-        />
 
         {/* Protected */}
         <Route element={<ProtectedRoute />}>
           <Route path="/user/dashboard" element={<UserDashboard />} />
           <Route path="/admin/dashboard" element={<AdminDashboard />} />
+          <Route
+            path="/master/dashboard"
+            element={<MasterDashboard />}
+          />
         </Route>
 
         {/* 404 */}

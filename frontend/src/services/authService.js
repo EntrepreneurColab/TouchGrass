@@ -38,6 +38,11 @@ const register = async (userData) => {
   return response.data
 }
 
+const registerStaff = async (staffData) => {
+  const response = await api.post("/staff/register", staffData)
+  return response.data
+}
+
 const getCurrentUser = () => {
   const user = sessionStorage.getItem("user")
 
@@ -85,6 +90,7 @@ const clearSession = () => {
 const authService = {
   login,
   register,
+  registerStaff,
   getCurrentUser,
   getToken,
   isAuthenticated,
